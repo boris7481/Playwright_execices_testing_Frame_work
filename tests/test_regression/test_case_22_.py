@@ -15,7 +15,6 @@ def test_Add_to_cart_from_Recommended_items(page: Page):
 
 
 # Firefox
-
 def test_Add_to_cart_from_Recommended_items_firefox(playwright: Playwright):
     firefoxBrowser = playwright.firefox.launch(headless=False)
     page = firefoxBrowser.new_page()
