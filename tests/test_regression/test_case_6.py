@@ -2,7 +2,6 @@ from playwright.sync_api import Page, expect, Playwright
 
 import time
 from pathlib import Path
-
 file_path = Path(r"C:\Users\boris\OneDrive\Desktop\Testing_document.txt")
 
 
@@ -13,7 +12,7 @@ def test_Contact_Us_Form(page: Page):
     expect(page.get_by_text("Video Tutorials")).to_be_visible()
     page.get_by_role("button", name="Einwilligen").click()
     page.get_by_role("link", name="Signup / Login").click()
-    page.get_by_role("link", name="Signup / Login").click()
+#    page.get_by_role("link", name="Signup / Login").click()
     page.locator('[data-qa="login-email"]').fill("freedomvision@gmail.com")
     page.locator('[data-qa="login-password"]').fill("Freedom95")
     page.locator('[data-qa="login-button"]').click()
@@ -37,7 +36,6 @@ def test_Contact_Us_Form_firefox(playwright: Playwright):
     page.goto("https://www.automationexercise.com/")
     expect(page.get_by_text("Video Tutorials")).to_be_visible()
     page.get_by_role("button", name="consent").click()
-    page.get_by_role("link", name="Signup / Login").click()
     page.get_by_role("link", name="Signup / Login").click()
     page.locator('[data-qa="login-email"]').fill("freedomvision@gmail.com")
     page.locator('[data-qa="login-password"]').fill("Freedom95")
