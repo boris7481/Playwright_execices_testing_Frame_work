@@ -28,13 +28,6 @@ def fake_credentials():
     }
 
 
-@pytest.fixture
-def gotoPage_test_6(page: Page):  # test 6
-    page.goto("https://www.automationexercise.com/")
-    expect(page.get_by_text("Video Tutorials")).to_be_visible()
-    page.get_by_role("button", name="Einwilligen").click()
-    page.get_by_role("link", name="Signup / Login").click()
-    return page
 
 
 @pytest.fixture()
@@ -44,13 +37,6 @@ def credentials_valid():
         "password": "Freedom95",
     }
 
-
-@pytest.fixture
-def verify_all_product_fixture(page: Page):  # test 8
-    page.goto("https://www.automationexercise.com/")
-    expect(page.get_by_text("Video Tutorials")).to_be_visible()
-    page.get_by_role("button", name="Einwilligen").click()
-    return page
 
 
 # firefox
@@ -73,5 +59,4 @@ def test_login_User_firefox_login(playwright: Playwright):
     page.get_by_role("button", name="consent").click()
     page.get_by_role("link", name="Signup / Login").click()
     expect(page.get_by_text("Login to your account")).to_be_visible()
-    #    firefoxBrowser.close()
     return page
