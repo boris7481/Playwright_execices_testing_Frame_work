@@ -28,15 +28,12 @@ def fake_credentials():
     }
 
 
-
-
 @pytest.fixture()
 def credentials_valid():
     return {
         "email": "flase@gmail.com",
         "password": "Freedom95",
     }
-
 
 
 # firefox
