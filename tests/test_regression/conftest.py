@@ -3,6 +3,14 @@ from playwright.sync_api import Page, expect, Playwright
 
 
 @pytest.fixture
+def go_to_page_einwilligen(page: Page):
+    page.goto("https://www.automationexercise.com/")
+    expect(page.get_by_text("Video Tutorials")).to_be_visible()
+    page.get_by_role("button", name="Einwilligen").click()
+    return page
+
+
+@pytest.fixture
 def go_to_page_login(page: Page):
     page.goto("https://www.automationexercise.com/")
     expect(page.get_by_text("Video Tutorials")).to_be_visible()
