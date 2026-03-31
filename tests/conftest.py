@@ -31,7 +31,7 @@ def fake_credentials():
 @pytest.fixture()
 def credentials_valid():
     return {
-        "email": "flase@gmail.com",
+        "email": "freedomvision@gmail.com",
         "password": "Freedom95",
     }
 
