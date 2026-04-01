@@ -1,16 +1,25 @@
+# Test Case 14: Place Order: Register while Checkout
+
+from playwright.sync_api import expect
+
 import time
 from faker import Faker
 
 faker = Faker()
-from playwright.sync_api import Page, expect, Playwright
+email = faker.email()
 
 
 # ---#termes = ID ,   .terms = class
-def test_Cases_1_Register_User_and_delete_the_account_after_creation(page: Page):
-    email = faker.email()
-    page.goto("https://www.automationexercise.com/signup")
-    page.get_by_text("AutomationExercise").is_visible()
-    page.get_by_role("button", name="Einwilligen").click()
+# Test Case 6: Contact Us Form
+def test_Place_Order_Register_while_Checkout(go_to_page_einwilligen):
+    page = go_to_page_einwilligen
+    page.get_by_role("link", name=" Products").click()
+    page.get_by_role("link", name="View Product").first.click()
+    expect(page.get_by_text("Category: Women > Tops")).to_be_visible()
+    page.get_by_role("button", name="Add to cart").click()
+    page.get_by_role("link", name="View Cart").click()
+    page.get_by_text("Proceed To Checkout").click()
+    page.get_by_role("link", name="Register / Login").click()
     page.get_by_role("link", name="Signup / Login").click()
     page.get_by_text("New User Signup!").is_visible()
     page.locator('[data-qa="signup-name"]').fill("09w0823@Freedom")
@@ -38,19 +47,33 @@ def test_Cases_1_Register_User_and_delete_the_account_after_creation(page: Page)
     expect(page.get_by_text("ACCOUNT CREATED!")).to_be_visible()
     page.locator("[data-qa='continue-button']").click()
     expect(page.get_by_text("Logged in as 09w0823@Freedom")).to_be_visible()
-    page.get_by_role("link", name=" Delete Account").click()
-    expect(page.get_by_text("ACCOUNT DELETED!")).to_be_visible()
-    time.sleep(2)  # this is only to see the step better
+    page.get_by_role("link", name="Cart").click()
+    page.get_by_text("Proceed To Checkout").click()
+    expect(page.get_by_text("Address Details")).to_be_visible()
+    expect(page.get_by_text("Review Your Order")).to_be_visible()
+    page.locator(".form-control").fill("everything is op")
+    page.get_by_role("link", name="Place Order").click()
+    page.locator("[data-qa='name-on-card']").fill("Master Card")
+    page.locator("[data-qa='card-number']").fill("10-2-30")
+    page.locator("[data-qa='cvc']").fill("200")
+    page.locator("[data-qa='expiry-month']").fill("10-02-30")
+    page.locator("[data-qa='expiry-year']").fill("2030")
+    page.locator("[data-qa='pay-button']").click()
+    expect(page.get_by_text("Congratulations! Your order has been confirmed!")).to_be_visible()
+    page.locator("[data-qa='continue-button']").click()
 
 
 # firefox
-def test_Cases_1_Register_User_and_delete_the_account_after_creation_foirefox(playwright: Playwright):
-    firefoxBrowser = playwright.firefox.launch(headless=False)
-    page = firefoxBrowser.new_page()
-    email = faker.email()
-    page.goto("https://www.automationexercise.com/signup")
-    page.get_by_text("AutomationExercise").is_visible()
-    page.get_by_role("button", name="consent").click()  # the only different is here
+
+def test_Place_Order_Register_while_Checkout_firefox(go_to_page_einwilligen):
+    page = go_to_page_einwilligen
+    page.get_by_role("link", name=" Products").click()
+    page.get_by_role("link", name="View Product").first.click()
+    expect(page.get_by_text("Category: Women > Tops")).to_be_visible()
+    page.get_by_role("button", name="Add to cart").click()
+    page.get_by_role("link", name="View Cart").click()
+    page.get_by_text("Proceed To Checkout").click()
+    page.get_by_role("link", name="Register / Login").click()
     page.get_by_role("link", name="Signup / Login").click()
     page.get_by_text("New User Signup!").is_visible()
     page.locator('[data-qa="signup-name"]').fill("09w0823@Freedom")
@@ -78,7 +101,18 @@ def test_Cases_1_Register_User_and_delete_the_account_after_creation_foirefox(pl
     expect(page.get_by_text("ACCOUNT CREATED!")).to_be_visible()
     page.locator("[data-qa='continue-button']").click()
     expect(page.get_by_text("Logged in as 09w0823@Freedom")).to_be_visible()
-    page.get_by_role("link", name=" Delete Account").click()
-    expect(page.get_by_text("ACCOUNT DELETED!")).to_be_visible()
-    firefoxBrowser.close()
-    time.sleep(2)  # this is only to see the step better
+    page.get_by_role("link", name="Cart").click()
+    page.get_by_text("Proceed To Checkout").click()
+    expect(page.get_by_text("Address Details")).to_be_visible()
+    expect(page.get_by_text("Review Your Order")).to_be_visible()
+    page.locator(".form-control").fill("everything is op")
+    page.get_by_role("link", name="Place Order").click()
+    page.locator("[data-qa='name-on-card']").fill("Master Card")
+    page.locator("[data-qa='card-number']").fill("10-2-30")
+    page.locator("[data-qa='cvc']").fill("200")
+    page.locator("[data-qa='expiry-month']").fill("10-02-30")
+    page.locator("[data-qa='expiry-year']").fill("2030")
+    page.locator("[data-qa='pay-button']").click()
+    expect(page.get_by_text("Congratulations! Your order has been confirmed!")).to_be_visible()
+    page.locator("[data-qa='continue-button']").click()
+

@@ -1,16 +1,16 @@
+# Test Case 1-2: Register User : this test case did not delete the user after his cretion
+
 import time
 from faker import Faker
 
 faker = Faker()
-from playwright.sync_api import Page, expect, Playwright
+
+from playwright.sync_api import  expect
 
 
-# ---#termes = ID ,   .terms = class
-def test_Cases_1_Register_User_and_delete_the_account_after_creation(page: Page):
+def test_Cases_1_Register_User_whithout_deleting_the_user_after_creation(go_to_page_einwilligen):
     email = faker.email()
-    page.goto("https://www.automationexercise.com/signup")
-    page.get_by_text("AutomationExercise").is_visible()
-    page.get_by_role("button", name="Einwilligen").click()
+    page = go_to_page_einwilligen
     page.get_by_role("link", name="Signup / Login").click()
     page.get_by_text("New User Signup!").is_visible()
     page.locator('[data-qa="signup-name"]').fill("09w0823@Freedom")
@@ -38,19 +38,13 @@ def test_Cases_1_Register_User_and_delete_the_account_after_creation(page: Page)
     expect(page.get_by_text("ACCOUNT CREATED!")).to_be_visible()
     page.locator("[data-qa='continue-button']").click()
     expect(page.get_by_text("Logged in as 09w0823@Freedom")).to_be_visible()
-    page.get_by_role("link", name=" Delete Account").click()
-    expect(page.get_by_text("ACCOUNT DELETED!")).to_be_visible()
-    time.sleep(2)  # this is only to see the step better
 
 
 # firefox
-def test_Cases_1_Register_User_and_delete_the_account_after_creation_foirefox(playwright: Playwright):
-    firefoxBrowser = playwright.firefox.launch(headless=False)
-    page = firefoxBrowser.new_page()
+
+def test_Cases_1_Register_User_whithout_deleting_the_user_after_creation_firefox(test_login_User_firefox_consent):
     email = faker.email()
-    page.goto("https://www.automationexercise.com/signup")
-    page.get_by_text("AutomationExercise").is_visible()
-    page.get_by_role("button", name="consent").click()  # the only different is here
+    page = test_login_User_firefox_consent
     page.get_by_role("link", name="Signup / Login").click()
     page.get_by_text("New User Signup!").is_visible()
     page.locator('[data-qa="signup-name"]').fill("09w0823@Freedom")
@@ -78,7 +72,3 @@ def test_Cases_1_Register_User_and_delete_the_account_after_creation_foirefox(pl
     expect(page.get_by_text("ACCOUNT CREATED!")).to_be_visible()
     page.locator("[data-qa='continue-button']").click()
     expect(page.get_by_text("Logged in as 09w0823@Freedom")).to_be_visible()
-    page.get_by_role("link", name=" Delete Account").click()
-    expect(page.get_by_text("ACCOUNT DELETED!")).to_be_visible()
-    firefoxBrowser.close()
-    time.sleep(2)  # this is only to see the step better
