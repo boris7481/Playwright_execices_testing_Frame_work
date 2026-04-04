@@ -5,7 +5,7 @@ class HomePage:
 # ceci est un commentaire juste pour tester un pull reqauest sur le git hub
     def __init__(self, page):
         self.page = page
-
+# ceci est un commentaire pour tester le git pull
     def navigate(self):
         self.page.goto("https://www.automationexercise.com/")
 
