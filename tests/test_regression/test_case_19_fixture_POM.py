@@ -7,7 +7,6 @@ from pages.products_page import ProductsPage
 
 # I need to chech this test again
 def test_View_and_Cart_Brand_Products(page: Page):
-
     homepage = HomePage(page)
     homepage.navigate_without_login()
     homepage.navigate_and_click_of_product_link()
@@ -18,11 +17,8 @@ def test_View_and_Cart_Brand_Products(page: Page):
     product_brands.navigate_to_see_all_products_page_and_see_brands_product()
 
 
-
-
-
 # firefox
-def test_View_and_Cart_Brand_Products_firefox (playwright: Playwright):
+def test_View_and_Cart_Brand_Products_firefox(playwright: Playwright):
     firefoxBrowser = playwright.firefox.launch(headless=False)
     page = firefoxBrowser.new_page()
     page.goto("https://www.automationexercise.com/")
