@@ -76,5 +76,20 @@ class ProductsPage:
         self.page.get_by_role("link", name="View Cart").click()
 
 
+    def Verify_all_the_products_related_to_search_are_visible(self):
+        expect(self.page.get_by_text("All Products")).to_be_visible()
+        self.page.get_by_placeholder("Search Product").fill("Polo")
+        self.page.locator("#submit_search").click()
+        expect(self.page.get_by_text("Searched Products")).to_be_visible()
+
+
+    def Add_those_products_to_cart(self):
+        product = self.page.locator(".product-image-wrapper").filter(has_text="Premium Polo T-Shirts").first
+        product.hover()
+        product.locator(".add-to-cart").first.click()
+        self.page.get_by_role("link", name="View cart").click()
+        expect(self.page.get_by_text("Premium Polo T-Shirts")).to_be_visible()
+        self.page.get_by_role("link", name="Signup / Login").click()
+        expect(self.page.get_by_text("Login to your account")).to_be_visible()
 
 
